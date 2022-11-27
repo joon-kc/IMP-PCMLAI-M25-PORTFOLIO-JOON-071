@@ -39,15 +39,15 @@ We also used a classification report to examine the precision and recall. As we 
 
 **EVALUATION ON TRAINING DATASET: (131143, 11)**
 
-- Accuracy Score: 0.9347668611079339
-- AUC ROC Score: 0.86448289085105
+- Accuracy Score: 0.9361468142140353
+- AUC ROC Score: 0.8607028277797334
 
 CLASSIFICATION REPORT OF TRAINING SET:
 
-              precision    recall  f1-score   support
+               precision    recall  f1-score   support
 
-     class 0       0.94      0.99      0.97     24420
-     class 1       0.64      0.13      0.21      1809
+     class 0       0.93      1.00      0.97     24420
+     class 1       0.72      0.05      0.09      1809
 
     accuracy                           0.93     26229
 
@@ -60,8 +60,8 @@ CLASSIFICATION REPORT OF HOLDOUT SET:
 
               precision    recall  f1-score   support
 
-     class 0       0.94      0.99      0.97     13594
-     class 1       0.63      0.13      0.22       955
+     class 0       0.94      1.00      0.97     13594
+     class 1       0.67      0.05      0.10       955
 
     accuracy                           0.94     14549
 
