@@ -6,6 +6,8 @@ This project focuses on predicting financial delinquency based on a borrower's c
 ## DATA
 The data is derived from the "Give Me Some Credit" Kaggle competition hosted by Home Credit, as part of a prediction competition. The dataset can be found in the link below. The contains the historical data of Home Credit customers, with a total of 251503 rows, whereby 150000 records belong to the train set and 101503 records belong to test set that is used in submission. Since we are not entering the competition and merely building a pipeline, we will use the 150000 records for the purposes of this repository instead.
 
+The data is stored in /give_me_some_credit_data/ folder. The main file used for training the model is cs-training.csv and it contains 150000 records.
+
 Link to Kaggle Source:
 (https://www.kaggle.com/competitions/GiveMeSomeCredit/overview)
 
