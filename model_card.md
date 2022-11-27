@@ -38,31 +38,32 @@ In order to assess the model's performance, a few metrics was used. We used a ge
 
 **EVALUATION ON TRAINING DATASET: (131143, 11)**
 
-- Accuracy Score: 0.9361468142140353
-- AUC ROC Score: 0.8607028277797334
+- Accuracy Score: 0.9385677242220867
+- AUC ROC Score: 0.8581265408698437
 
 CLASSIFICATION REPORT OF TRAINING SET:
 
                precision    recall  f1-score   support
 
-     class 0       0.93      1.00      0.97     24420
-     class 1       0.72      0.05      0.09      1809
+     class 0       0.94      1.00      0.97     24573
+     class 1       0.65      0.05      0.10      1651
 
-    accuracy                           0.93     26229
+    accuracy                           0.94     26224
+
 
 **EVALUATION ON HOLDOUT (UNSEEN) DATASET: (29169, 11)**
 
-- Accuracy Score: 0.9378651453708159
-- AUC ROC Score: 0.860959832140296
+- Accuracy Score: 0.9335757908460852
+- AUC ROC Score: 0.8683670824829425
 
 CLASSIFICATION REPORT OF HOLDOUT SET:
 
               precision    recall  f1-score   support
 
-     class 0       0.94      1.00      0.97     13594
-     class 1       0.67      0.05      0.10       955
+     class 0       0.93      1.00      0.97     13587
+     class 1       0.65      0.04      0.08       986
 
-    accuracy                           0.94     14549
+    accuracy                           0.93     14573
 
 
 
@@ -79,5 +80,5 @@ The limitations of the model is that it can only predict that the person experie
 
 Outline any trade-offs of your model, such as any circumstances where the model exhibits performance issues. 
 
-The above limitation of overfitting in random forest models can lead to performance issues, as the model may suffer in terms of classification accuracy when predicting on newer and more updated data. There is need to retrain the model should we wish to introduce more updated data for prediction.
+The above limitation of overfitting in random forest models can lead to performance issues, as the model may suffer in terms of classification accuracy when predicting on newer and more updated data. There is need to retrain the model should we wish to introduce more updated data for prediction. Also the model has a high precision and low recall. Therefore, one needs to be aware of performance issues arriving from potential false negatives, and there needs to be additional strategies to deal with these edge cases
 
