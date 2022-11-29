@@ -1,7 +1,7 @@
-# Predicting Financial Delinquency - Days Past Due
+# 90 Days Past Due - Predicting Financial Delinquency in Borrowers
 
 ## NON-TECHNICAL EXPLANATION OF YOUR PROJECT
-This project focuses on predicting financial delinquency based on a borrower's credit or borrowing history, as part of credit scoring. Essentially, we are trying to predict borrowers who are likely to be 90 days past due from their loan. The aim here is to understand how machine learning models can be used for financial delinquency, which is relevant to industries in the financial sector or financial services. It also looks at how common credit or financial history features can be used in predicting delinquency.
+This project focuses on predicting financial delinquency based on a borrower's credit or borrowing history. Essentially, we want to identify borrowers who are likely to be 90 days past due (dpd), and deny them the loan or service. These borrowers are assigned to the positive class (class 1). Thus, we want to train a classification model that can predict individuals in the positive class. Based on business requirements, our model should have a low false postive rate, as we only want to block those whom we are very confident about, as the first layer of defense.
 
 ## DATA
 The data is derived from the "Give Me Some Credit" Kaggle competition hosted by Home Credit, as part of a prediction competition. The dataset can be found in the link below. The contains the historical data of Home Credit customers, with a total of 251503 rows, whereby 150000 records belong to the train set and 101503 records belong to test set that is used in submission. Since we are not entering the competition and merely building a pipeline, we will use the 150000 records for the purposes of this repository instead.
@@ -30,44 +30,50 @@ In hyperparameter tuning, I have chosen a Gridsearch approach to tune the hyperp
 List of Hyperparameters tuned:
 1. Max Depth
 2. Minimum Samples Split
-3. Minimum Samples Leaf
+3. Maximum Leaf Nodes
 4. Maximum Features Considered
 5. Number of estimators
 
 ## RESULTS
-In summary, the performance of the model was analyzed based on the classification of whether an individual was deemed to be delinquent with days past due 90 days. In order to assess the model's performance, a few metrics was used. We used a general accuracy score and AUC ROC score to see how the model performs.
 
-We also used a classification report to examine the precision and recall. As we can see in both the training and holdout set, the model has a higher precision but a lower recall but a lower recall for predicting delinquent individuals. This means that while the model does not effectively predict all delinquents, most of those it predicted as delinquent are accurate. The metrics summary report is shown below.
+To recap, based on business strategy, our model should have a low false postive rate, as we only want to block those whom we are very confident belongs in the positive class. Thus, we want to identify as many true positives as possible. As we have other downstream underwriting risk strategies, we are less concerned about false negatives, as they will be captured later on.
 
-**EVALUATION ON TRAINING DATASET: (131143, 11)**
+Metrics used:
+1. AUC-ROC: The ROC curve plots the True Positive Rate against the False Positive Rate at various threshold values. The Area Under the Curve (AUC) measures the classifier's ability to distinguish between classes. Generally speaking, the higher the AUC (closer to 1.0), the better the performance of the model in distinguishing between the positive and negative class.
+2. Precision: Precision measures the ratio between the true positives and all the positives. 
+3. Recall (Sensitivity): Recall measures the ratio of positive instances that are correctly detected.
+4. Specificity: Refers to the probability that a true negative is correctly identified.
+5. Accuracy score: Measures the number of correct predictions in relation to the total number of predictions made
 
-- Accuracy Score: 0.9385677242220867
-- AUC ROC Score: 0.8581265408698437
+In order to assess the model's performance, we used the following metrics as summarized below. Also, as we are using the underlying predicted probabilities of each class, we set the threshold for defining the positive class. The summary table below uses the default threshold of 0.5.
 
-CLASSIFICATION REPORT OF TRAINING SET:
+**Here we present the summary metrics of the Random Forest Model trained on different data:**
+1. Normal Model - Random Forest Model trained on normal training data with no oversampling.
+2. Oversampled Model - Random Forest Model trained on training data generated from oversampling
 
-               precision    recall  f1-score   support
+**EVALUATION METRICS SUMMARY TABLE (NORMAL) - Model trained on non-oversampled data**
 
-     class 0       0.94      1.00      0.97     24573
-     class 1       0.65      0.05      0.10      1651
+| Evaluation Metric | Training Data | Test Data |
+| ------------- | ------------- | ------------- |
+| Accuracy  | 0.93587  | 0.93438  |
+| ROC-AUC  | 0.851 | 0.85383  |
+| Sensitivity  | 0.01388  | 0.01042  |
+| Specificity  | 0.99989  | 0.99927  |
+| Precision-Recall (class 0)  | 0.935-0.999  | 0.935-0.999  |
+| Precision-Recall (class 1)  | 0.500-0.010  | 0.500-0.010  |
 
-    accuracy                           0.94     26224
+**EVALUATION METRICS SUMMARY TABLE (OVERSAMPLING) - Model trained on oversampled data**
 
+| Evaluation Metric | Training Data | Test Data |
+| ------------- | ------------- | ------------- |
+| Accuracy  | 0.74012  | 0.74299  |
+| ROC-AUC  | 0.85023 | 0.85814  |
+| Sensitivity  | 0.79958  | 0.79167  |
+| Specificity  | 0.73592  | 0.73958 |
+| Precision-Recall (class 0)  | 0.981-0.736  | 0.981-0.740  |
+| Precision-Recall (class 1)  | 0.176-0.800  | 0.176-0.792  |
 
-**EVALUATION ON HOLDOUT (UNSEEN) DATASET: (29169, 11)**
-
-- Accuracy Score: 0.9335757908460852
-- AUC ROC Score: 0.8683670824829425
-
-CLASSIFICATION REPORT OF HOLDOUT SET:
-
-              precision    recall  f1-score   support
-
-     class 0       0.93      1.00      0.97     13587
-     class 1       0.65      0.04      0.08       986
-
-    accuracy                           0.93     14573
-
+Based on the above, the overall better performing model is the one that is trained on the oversampled data. Although, it has a lower accuracy on the test set, it outperforms the model trained on non-oversampled data in terms of recall. Recall is important to our business strategy as we want to correctly identify individuals in the positive class, given that they are will be 90 days dpd. The model trained on oversampled data also has a more balanced sensitivity and specificity as compared to the model trained on non-oversampled data.
 
 ## (OPTIONAL: CONTACT DETAILS)
 Not Applicable

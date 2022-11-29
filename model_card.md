@@ -1,6 +1,4 @@
-# Model Card
-
-See the [example Google model cards](https://modelcards.withgoogle.com/model-reports) for inspiration. 
+# Model Card 
 
 ## Model Description
 
@@ -31,43 +29,37 @@ The model uses a Random Forest Classifier. Random forest (RF) models make output
 
 ## Performance
 
-The performance of the model was analyzed based on the classification of whether an individual was deemed to be delinquent with days past due 90 days. As a reacap, we are using the dataset containing an individual's credit history and we are using it to predict the fact the individual is a person who experienced 90 days past due delinquency or worse.
+To recap, based on business strategy, our model should have a low false postive rate, as we only want to block those whom we are very confident belongs in the positive class. Thus, we want to identify as many true positives as possible. As we have other downstream underwriting risk strategies, we are less concerned about false negatives, as they will be captured later on.
 
-In order to assess the model's performance, a few metrics was used. We used a general accuracy score and AUC ROC score to see how the model performs. As we are using the underlying predicted probabilities of each class, we set the threshold for defining the positive class. Here, we set the threshold to any probability greater than 0.6 as the delinquent class (class 1). The reason for this is because we want to minimize the number of false positives, to truly identify bad actors. That said this threshold is flexible and can be defined based on requirements in the code.
+In order to assess the model's performance, we used the following metrics as summarized below. Also, as we are using the underlying predicted probabilities of each class, we set the threshold for defining the positive class. The summary table below uses the default threshold of 0.5. 
 
+**Here we present the summary metrics of the Random Forest Model trained on different data:**
+1. Normal Model - Random Forest Model trained on normal training data with no oversampling.
+2. Oversampled Model - Random Forest Model trained on training data generated from oversampling
 
-**EVALUATION ON TRAINING DATASET: (131143, 11)**
+**EVALUATION METRICS SUMMARY TABLE (NORMAL) - Model trained on non-oversampled data**
 
-- Accuracy Score: 0.9385677242220867
-- AUC ROC Score: 0.8581265408698437
+| Evaluation Metric | Training Data | Test Data |
+| ------------- | ------------- | ------------- |
+| Accuracy  | 0.93587  | 0.93438  |
+| ROC-AUC  | 0.851 | 0.85383  |
+| Sensitivity  | 0.01388  | 0.01042  |
+| Specificity  | 0.99989  | 0.99927  |
+| Precision-Recall (class 0)  | 0.935-0.999  | 0.935-0.999  |
+| Precision-Recall (class 1)  | 0.500-0.010  | 0.500-0.010  |
 
-CLASSIFICATION REPORT OF TRAINING SET:
+**EVALUATION METRICS SUMMARY TABLE (OVERSAMPLING) - Model trained on oversampled data**
 
-               precision    recall  f1-score   support
+| Evaluation Metric | Training Data | Test Data |
+| ------------- | ------------- | ------------- |
+| Accuracy  | 0.74012  | 0.74299  |
+| ROC-AUC  | 0.85023 | 0.85814  |
+| Sensitivity  | 0.79958  | 0.79167  |
+| Specificity  | 0.73592  | 0.73958 |
+| Precision-Recall (class 0)  | 0.981-0.736  | 0.981-0.740  |
+| Precision-Recall (class 1)  | 0.176-0.800  | 0.176-0.792  |
 
-     class 0       0.94      1.00      0.97     24573
-     class 1       0.65      0.05      0.10      1651
-
-    accuracy                           0.94     26224
-
-
-**EVALUATION ON HOLDOUT (UNSEEN) DATASET: (29169, 11)**
-
-- Accuracy Score: 0.9335757908460852
-- AUC ROC Score: 0.8683670824829425
-
-CLASSIFICATION REPORT OF HOLDOUT SET:
-
-              precision    recall  f1-score   support
-
-     class 0       0.93      1.00      0.97     13587
-     class 1       0.65      0.04      0.08       986
-
-    accuracy                           0.93     14573
-
-
-
-We also used a classification report to examine the precision and recall. As we can see in both the training and holdout set, the model has a higher precision but a lower recall for predicting delinquent individuals. This means that while the model does not effectively predict all delinquents, most of those it predicted as delinquent are correct. The metrics summary report is shown above.
+Based on the above, the overall better performing model is the one that is trained on the oversampled data. Although, it has a lower accuracy on the test set, it outperforms the model trained on non-oversampled data in terms of recall. Recall is important to our business strategy as we want to correctly identify individuals in the positive class, given that they are will be 90 days dpd. The model trained on oversampled data also has a more balanced sensitivity and specificity as compared to the model trained on non-oversampled data.
 
 
 ## Limitations
@@ -81,4 +73,3 @@ The limitations of the model is that it can only predict that the person experie
 Outline any trade-offs of your model, such as any circumstances where the model exhibits performance issues. 
 
 The above limitation of overfitting in random forest models can lead to performance issues, as the model may suffer in terms of classification accuracy when predicting on newer and more updated data. There is need to retrain the model should we wish to introduce more updated data for prediction. Also the model has a high precision and low recall. Therefore, one needs to be aware of performance issues arriving from potential false negatives, and there needs to be additional strategies to deal with these edge cases
-
