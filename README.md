@@ -33,11 +33,11 @@ Summary Table of Hyperparameters tuned:
 
 | Hyperparameter | Variable Name | Definition |
 | ------------- | ------------- | ------------- |
-| Number of Estimators | n_estimators  | The number of trees in the forest  |
-| Max Depth  | max_depth  | The maximum depth of the tree  |
-| Minimum Samples Split | min_samples_split | The minimum number of samples required to split an internal node  |
-| Maximum Leaf Nodes  | max_leaf_nodes  | Sets a condition on the splitting of the nodes in the tree and hence restricts the growth of the tree. Best nodes are defined as relative reduction in impurity  |
-| Maximum Features  | max_features  | The number of features to consider when looking for the best split  |
+| Number of Estimators | `n_estimators`  | The number of trees in the forest  |
+| Max Depth  | `max_depth`  | The maximum depth of the tree  |
+| Minimum Samples Split | `min_samples_split` | The minimum number of samples required to split an internal node  |
+| Maximum Leaf Nodes  | `max_leaf_nodes`  | Sets a condition on the splitting of the nodes in the tree and hence restricts the growth of the tree. Best nodes are defined as relative reduction in impurity  |
+| Maximum Features  | `max_features`  | The number of features to consider when looking for the best split  |
 
 ## **RESULTS**
 
