@@ -64,12 +64,17 @@ Based on the above, the overall better performing model is the one that is train
 
 ## Limitations
 
-Outline the limitations of your model.
+The following factors may degrade the model's performance
 
-The limitations of the model is that it can only predict that the person experiences a 90 days past due delinquency or worse. As this is a classification model, it only gives a binary output and we cannot predict the actual number of days past due. Also, random forest models are prone to overfitting and while it will perform well on this dataset, one should be cautious about its accuracy.
+1. Extreme Values: Extreme values in some of the specified features can lead to poor predictability especially if these values were not captured in the training data
+2. Missing Salary: Missing values in the salary input can lead to poor predictability, as the current strategy assumes that missing values are filled with the median salary
+3. Age: Model can only make predictions on individuals older than 18 years old
+4. Number of dependents: Missing values for number of dependents will default to 0 during model prediction
+
 
 ## Trade-offs
 
-Outline any trade-offs of your model, such as any circumstances where the model exhibits performance issues. 
+Models can exhibit performance issues under certain circumstances. Here, we list potential situations where this may occur, and the user should plan accordingly.
 
-The above limitation of overfitting in random forest models can lead to performance issues, as the model may suffer in terms of classification accuracy when predicting on newer and more updated data. There is need to retrain the model should we wish to introduce more updated data for prediction. Also the model has a high precision and low recall. Therefore, one needs to be aware of performance issues arriving from potential false negatives, and there needs to be additional strategies to deal with these edge cases
+1. Random forest models are prone to overfitting and while it will perform well on this dataset, one should be cautious about its accuracy on newer data. Thus, we need to monitor model drift and population stability indexes to measure how much there newer data deviates from the training data
+2. Model in general has a high recall for the positive class (Class 1). Thus, the model will excel in conditions where we need to confidently identify true positives at the risk of some false negatives. Model performance will suffer when the strategy calls for higher precision.
