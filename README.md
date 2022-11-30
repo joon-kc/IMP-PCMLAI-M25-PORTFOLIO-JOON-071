@@ -1,9 +1,11 @@
 # 90 Days Past Due - Predicting Financial Delinquency in Borrowers
 
-## NON-TECHNICAL EXPLANATION OF YOUR PROJECT
+## **NON-TECHNICAL EXPLANATION OF PROJECT**
+
 This project focuses on predicting financial delinquency based on a borrower's credit or borrowing history. Essentially, we want to identify borrowers who are likely to be 90 days past due (dpd), and deny them the loan or service. These borrowers are assigned to the positive class (class 1). Thus, we want to train a classification model that can predict individuals in the positive class. Based on business requirements, our model should have a low false postive rate, as we only want to block those whom we are very confident about, as the first layer of defense.
 
-## DATA
+
+## **DATA**
 The data is derived from the "Give Me Some Credit" Kaggle competition hosted by Home Credit, as part of a prediction competition. The dataset can be found in the link below. The contains the historical data of Home Credit customers, with a total of 251503 rows, whereby 150000 records belong to the train set and 101503 records belong to test set that is used in submission. Since we are not entering the competition and merely building a pipeline, we will use the 150000 records for the purposes of this repository instead.
 
 The data is stored in /give_me_some_credit_data/ folder. The main file used for training the model is cs-training.csv and it contains 150000 records.
@@ -12,7 +14,7 @@ Link to Kaggle Source:
 (https://www.kaggle.com/competitions/GiveMeSomeCredit/overview)
 
 
-## MODEL 
+## **MODEL** 
 A summary of the model you’re using and why you chose it. 
 
 The model that is used for this dataset training would be a Random Forest Classifier. The reason for choosing this is as follows:
@@ -22,19 +24,22 @@ The model that is used for this dataset training would be a Random Forest Classi
 3. It is non-parametric in nautre and does not make assumptions about the underlying data
 4. It is also more robust to outliers. Since we are dealing with financial delinquency there will potentially be lots of outliers that should not be removed. Hence, we need a more robust model.
 
-## HYPERPARAMETER OPTIMSATION
+## **HYPERPARAMETER OPTIMSATION**
 Description of which hyperparameters you have and how you chose to optimise them. 
 
 In hyperparameter tuning, I have chosen a Gridsearch approach to tune the hyperparameters of the Random Forest Classifier Model. The reason for this optimization is that it will perform an exhaustive search, and find the absolute best set of combinations based on the specified search space.
 
-List of Hyperparameters tuned:
-1. Max Depth
-2. Minimum Samples Split
-3. Maximum Leaf Nodes
-4. Maximum Features Considered
-5. Number of estimators
+Summary Table of Hyperparameters tuned:
 
-## RESULTS
+| Hyperparameter | Variable Name | Definition |
+| ------------- | ------------- | ------------- |
+| Number of Estimators | n_estimators  | The number of trees in the forest  |
+| Max Depth  | max_depth  | The maximum depth of the tree  |
+| Minimum Samples Split | min_samples_split | The minimum number of samples required to split an internal node  |
+| Maximum Leaf Nodes  | max_leaf_nodes  | Sets a condition on the splitting of the nodes in the tree and hence restricts the growth of the tree. Best nodes are defined as relative reduction in impurity  |
+| Maximum Features  | max_features  | The number of features to consider when looking for the best split  |
+
+## **RESULTS**
 
 To recap, based on business strategy, our model should have a low false postive rate, as we only want to block those whom we are very confident belongs in the positive class. Thus, we want to identify as many true positives as possible. As we have other downstream underwriting risk strategies, we are less concerned about false negatives, as they will be captured later on.
 

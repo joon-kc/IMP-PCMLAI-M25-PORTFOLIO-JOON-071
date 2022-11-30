@@ -17,13 +17,13 @@ The inputs of the model consists of the following features, associated with an i
  9. NumberOfTime60-89DaysPastDueNotWorse (INT): Number of times borrower has been 60-89 days past due but no worse in the last 2 years.
  10. NumberOfDependents (INT): Number of dependents in family excluding themselves (spouse, children etc.)
 
-**Output:** Describe the output(s) of your model
+**Output:**
 
-The output of the model consists of a binary classification of either 1 or 0, where "1" represents the fact the individual a person experienced 90 days past due delinquency or worse. This classification is based on the predicted probabilities that each class belongs to. 
+The output of the model consists of a binary classification of either 1 or 0, where "1" represents the positive class, that the individual experienced 90 days past due delinquency or worse. This classification is based on the predicted probabilities that each class belongs to. We can influence the output by adjusting the threshold value (0 to 1), and any probability of belonging in class 1 that exceeds the threshold will be classified as 1.
 
-**Model Architecture:** Describe the model architecture you’ve used]
+**Model Architecture:**
 
-The model uses a Random Forest Classifier. Random forest (RF) models make output predictions by combining outcomes from a sequence of regression decision trees. Below shows a sample architecture of how one of the estimator tree in a random forest looks like. This is merely for illustration purposes.
+The model uses a Random Forest Classifier. Random forest (RF) models make output predictions by combining outcomes from a forest of decision trees (estimators). Below shows a sample architecture of how one of the estimator tree in a random forest looks like. Our decision tree as a maximum depth of 3 with no further splits after that. Diagram below shows the architecture of one of the many decision tree from our random forest
 
 ![Screenshot](rf_individualtree.png)
 
